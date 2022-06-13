@@ -1,5 +1,9 @@
 {
     "cSpell.words": [
         "nestjs"
-    ]
+    ],
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true,
+  },
+  "editor.formatOnSave": true,
 }
