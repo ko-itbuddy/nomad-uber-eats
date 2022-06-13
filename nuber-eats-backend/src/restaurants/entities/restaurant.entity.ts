@@ -1,11 +1,12 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { IsBoolean, IsString, Length } from 'class-validator';
 
 @ObjectType()
 export class Restaurant {
-  @Field((type) => String)
+  @Field(type => String)
   name: string;
 
-  @Field((type) => Boolean, { nullable: true })
+  @Field(type => Boolean, { nullable: true })
   isGood?: boolean;
 
   @Field(type => String)
