@@ -1,3 +1,4 @@
+import { JwtService } from './../jwt/jwt.service';
 import { CreateAccountInput, CreateAccountOutput } from './dtos/create-account.dto';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -8,7 +9,8 @@ import { LoginInput, LoginOutput } from './dtos/login.dto';
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User) private readonly users: Repository<User>
+    @InjectRepository(User) private readonly users: Repository<User>,
+    private readonly jwtService: JwtService,
   ) { }
 
   async createAccount({ email, password, role }: CreateAccountInput): Promise<CreateAccountOutput> {
@@ -47,9 +49,10 @@ export class UsersService {
           error: 'Wrong password',
         };
       }
+      const token = this.jwtService.sign({ id: user.id });
       return {
         ok: true,
-        token: 'lalalalaalala',
+        token
       };
     } catch (error) {
       return {
