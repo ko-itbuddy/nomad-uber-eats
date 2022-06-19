@@ -1,11 +1,12 @@
 {
-    "cSpell.words": [
-      "nestjs",
-      "nuber",
-      "typeorm"
-    ],
-    "editor.codeActionsOnSave": {
-      "source.fixAll": true,
+  "cSpell.words": [
+    "dtos",
+    "nestjs",
+    "nuber",
+    "typeorm"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
   },
   "editor.formatOnSave": true,
 }
