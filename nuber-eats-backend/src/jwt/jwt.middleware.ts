@@ -1,6 +1,6 @@
 import { UsersService } from './../users/users.service';
 import { JwtService } from './jwt.service';
-import { Injectable, NestMiddleware, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, NestMiddleware, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { NextFunction } from "express";
 
 @Injectable()
@@ -19,7 +19,7 @@ export class JwtMiddleWare implements NestMiddleware {
           console.log(user);
           req['user'] = user;
         } catch (error) {
-          throw new InternalServerErrorException();
+          throw new UnauthorizedException();
         }
       }
     }
