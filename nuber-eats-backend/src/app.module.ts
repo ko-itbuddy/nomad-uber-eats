@@ -7,6 +7,7 @@ import * as Joi from 'joi';
 import { UsersModule } from './users/users.module';
 import { JwtModule } from './jwt/jwt.module';
 import { JwtMiddleWare } from './jwt/jwt.middleware';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
