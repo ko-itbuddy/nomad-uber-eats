@@ -1,6 +1,6 @@
 import { UsersService } from './../users/users.service';
 import { JwtService } from './jwt.service';
-import { Injectable, NestMiddleware, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NestMiddleware, UnauthorizedException } from '@nestjs/common';
 import { NextFunction } from "express";
 
 @Injectable()
@@ -16,7 +16,6 @@ export class JwtMiddleWare implements NestMiddleware {
       if (typeof decoded === "object" && decoded.hasOwnProperty('id')) {
         try {
           const user = await this.userService.findById(decoded['id']);
-          console.log(user);
           req['user'] = user;
         } catch (error) {
           throw new UnauthorizedException();
