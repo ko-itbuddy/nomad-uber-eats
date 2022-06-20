@@ -5,7 +5,7 @@ import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { Args, Context, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { UseGuards } from '@nestjs/common';
-import { AuthUser } from './auth-user.decorator';
+import { AuthUser } from '../auth/auth-user.decorator';
 
 @Resolver(of => User)
 export class UsersResolver {
