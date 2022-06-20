@@ -12,10 +12,6 @@ export class UsersResolver {
   constructor(
     private readonly usersService: UsersService
   ) { }
-  @Query(returns => Boolean)
-  hi() {
-    return true;
-  }
 
   @Mutation(returns => CreateAccountOutput)
   async createAccount(@Args("input") createAccountInput: CreateAccountInput): Promise<CreateAccountOutput> {
