@@ -8,6 +8,7 @@ import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { UseGuards } from '@nestjs/common';
 import { AuthUser } from '../auth/auth-user.decorator';
 import { EditProfileInput, EditProfileOutput } from './dtos/edit-profile.dto';
+import { VerifyEmailInput, VerifyEmailOutPut } from './dtos/verify-email.dto';
 
 @Resolver(of => User)
 export class UsersResolver {
@@ -91,5 +92,10 @@ export class UsersResolver {
     }
   }
 
+
+  @Mutation(returns => VerifyEmailOutPut)
+  async verifyEmail(@Args('input') verificationEmailInput: VerifyEmailInput) { 
+    this.usersService.verifyEmail(verificationEmailInput.code);
+  }
 
 }

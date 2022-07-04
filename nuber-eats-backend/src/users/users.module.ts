@@ -1,14 +1,13 @@
-import { JwtService } from './../jwt/jwt.service';
-import { JwtModule } from './../jwt/jwt.module';
 import { UsersService } from './users.service';
 import { UsersResolver } from './users.resolver';
 import { User } from './entities/user.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
+import { Verification } from './entities/verification.entiry';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), ConfigService],
+  imports: [TypeOrmModule.forFeature([User, Verification]), ConfigService],
   providers: [UsersResolver, UsersService],
   exports: [UsersService]
 })

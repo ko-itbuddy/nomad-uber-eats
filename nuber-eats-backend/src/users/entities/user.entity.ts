@@ -29,6 +29,10 @@ export class User extends CoreEntity {
   @Field(type => UserRole)
   role: UserRole;
 
+  @Column({default: false})
+  @Field(type => Boolean)
+  verified: boolean;
+
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword(): Promise<void> {
@@ -49,4 +53,6 @@ export class User extends CoreEntity {
       throw new InternalServerErrorException();
     }
   }
+
+
 }

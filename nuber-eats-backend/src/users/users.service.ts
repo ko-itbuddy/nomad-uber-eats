@@ -6,11 +6,13 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Injectable } from '@nestjs/common';
 import { LoginInput, LoginOutput } from './dtos/login.dto';
 import { EditProfileInput } from './dtos/edit-profile.dto';
+import { Verification } from './entities/verification.entiry';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private readonly users: Repository<User>,
+    @InjectRepository(Verification) private readonly verifications: Repository<Verification>,
     private readonly jwtService: JwtService,
   ) { }
 
@@ -20,7 +22,10 @@ export class UsersService {
       if (exists) {
         return { ok: false, error: 'There us a user with that email already' };
       }
-      await this.users.save(this.users.create({ email, password, role }));
+     const user =  await this.users.save(this.users.create({ email, password, role }));
+      await this.verifications.save(this.verifications.create({
+        user
+      }));
       return { ok: true };
     } catch (e) {
       //make error
@@ -71,10 +76,21 @@ export class UsersService {
     const user = await this.users.findOne({ where: {id: userId} });
     if (email) {
       user.email = email;
+      user.verified = false;
+      await this.verifications.create(this.verifications.create({ user }));
     }
     if (password) {
       user.password = password;
     }
     return this.users.save(user);
+  }
+
+  async verifyEmail(code: string): Promise<boolean>{
+    const verification = await this.verifications.findOne({ where: { code }, relations: ['user'], relationLoadStrategy: 'query' });
+    if (verification) { 
+      verification.user.verified = true;
+      this.users.save(verification.user);
+    }
+    return false;
   }
 }
